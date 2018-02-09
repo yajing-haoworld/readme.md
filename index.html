@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+          document.documentElement.style.fontSize=window.innerWidth/10+"px";
+    </script>
+    <script src="js/angular.min.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header class="header">
+            <div class="miao">
+               <input type="text" class="inp">
+            </div>
+        </header>
+        <section class="section" > 
+            <ul class="nav">
+                <li>每日推荐</li>
+                <li>投票排行</li>
+                <li>每日推荐</li>
+            </ul>
+          <div class="box" ng-app="app" ng-controller="myscr">
+                <mydir1>
+                    <mydir2 ng-repeat="item in arr" title="{{item.tit}}" url="{{item.url}}" url2="{{item.url2}}"></mydir2>
+                       
+               </mydir1>
+          </div>
+        </section>
+        <footer class="footer">
+           
+        </footer>
+    </div>
+    <script>
+           var app=angular.module("app",[]);
+           app.directive("mydir1",function(){
+               return{
+                   restrict:"E",
+                   templateUrl:"view/demo1.html",
+                   transclude:true,
+                   scope:{},
+                   controller:function($scope){
+                       $scope.arr=[];
+                       $scope.change=function(obj){
+                        
+                           for(var i=0;i<$scope.arr.length;i++){
+                               $scope.arr[i].flag=false;
+                           }
+                          obj.flag=true;
+                       }
+                       this.add=function(obj){
+                          
+                           $scope.arr.push(obj)
+                          
+                       }
+                        
+                   }
+               }
+               
+
+           })
+           app.directive("mydir2",function(){
+               return{
+                   restrict:"E",
+                   templateUrl:"view/demo2.html",
+                   require:"^mydir1",
+                   scope:{
+                       title:"@",
+                       url:"@",
+                       url2:"@"
+                    },
+                   link:function(scope,elel,atr,parentcontroller){
+                     
+                       scope.flag=false;
+                      
+                        parentcontroller.add(scope)
+                   }
+                  
+               }
+               
+
+           })
+
+
+           app.controller("myscr",function($scope){
+               $scope.arr=[
+                   {
+                       tit:"1",
+                       url:"imgs/maomi2.png",
+                       url2:"imgs/maomi2.png",
+                       
+                   },
+                   {
+                       tit:"2",
+                       url:"imgs/maomi.png",
+                       url2:"imgs/maomi.png"
+                   },
+                   {
+                       tit:"3",
+                       url:"imgs/maomi2.png",
+                       url2:"imgs/maomi2.png"
+                   },
+                   
+                ]
+           
+                
+           })
+          
+    
+    </script>
+</body>
+</html>

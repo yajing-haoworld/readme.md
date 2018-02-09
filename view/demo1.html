@@ -1,0 +1,33 @@
+<div class="mydir1">
+    <style>
+        .mydir1{
+              padding-bottom:40px;
+              position: relative;
+        }
+        .tabs{
+              width: 100%;
+              position: absolute;
+              bottom:0;
+             text-align: center;
+            padding:5px 0;
+        }
+        .tabs span{
+             width:30px;
+              height:30px;
+              line-height: 30px;
+              background: skyblue;
+              color:#fff;
+              border-radius: 50%;
+              display: inline-block;
+              margin:0 10px;
+              text-align: center;
+              cursor: pointer;
+        }
+      
+    </style>
+    <div class="tabs">
+         <span ng-repeat="v in arr" ng-click="change(v)" >{{v.title}}</span>     <!--点击栏 -->
+    </div>
+   
+     <div ng-transclude></div>    <!--存放的内容 -->
+</div>
